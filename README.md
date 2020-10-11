@@ -11,5 +11,6 @@ $ npm run dev
 
 ### References:
 
-https://webglfundamentals.org/webgl/lessons/webgl-shadertoy.html
-https://svelte.dev/tutorial/bind-this
+[https://webglfundamentals.org/webgl/lessons/webgl-shadertoy.html](https://webglfundamentals.org/webgl/lessons/webgl-shadertoy.html)
+
+[https://svelte.dev/tutorial/bind-this](https://svelte.dev/tutorial/bind-this)
