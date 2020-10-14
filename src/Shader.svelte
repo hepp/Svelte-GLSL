@@ -7,7 +7,7 @@
 	import { onMount } from 'svelte';
 	import { createProgramFromSources } from './ShaderUtils.svelte';
 
-	export let scale;
+	export let scale = 1;
 
 	// Default fragment shader
 	export let fragmentShader = `
