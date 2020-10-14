@@ -2,10 +2,25 @@
 
 <script>
 
+	// Example from : https://webglfundamentals.org/webgl/lessons/webgl-shadertoy.html
+
 	import { onMount } from 'svelte';
 	import { createProgramFromSources } from './ShaderUtils.svelte';
 
 	export let scale;
+
+	// Default fragment shader
+	export let fragmentShader = `
+		precision highp float;
+
+		uniform vec2 u_resolution;
+		uniform vec2 u_mouse;
+		uniform float u_time;
+
+		void main() {
+			gl_FragColor = vec4(fract((gl_FragCoord.xy - u_mouse) / u_resolution), fract(u_time), 1);
+		}
+	`;
 
 	let canvas;
 	let canvasWidth, canvasHeight;
@@ -23,6 +38,7 @@
 		canvasWidth = s + "%";
 		canvasHeight = s + "%";
 
+		// Scale to the entire window
 		m.x = (event.clientX / clientWidth) * s;
 		m.y = (event.clientY / clientHeight) * s;
 	}
@@ -51,24 +67,8 @@
 			}
 		`;
 
-		// Default fragment shader
-		const fs = `
-			precision highp float;
-
-			uniform vec2 u_resolution;
-			uniform vec2 u_mouse;
-			uniform float u_time;
-
-			void main() {
-			// gl_FragColor is a special variable a fragment shader
-			// is responsible for setting
-
-			gl_FragColor = vec4(fract((gl_FragCoord.xy - u_mouse) / u_resolution), fract(u_time), 1);
-			}
-		`;
-
 		// Setup GLSL program
-		const program = createProgramFromSources(gl, [vs, fs]);
+		const program = createProgramFromSources(gl, [vs, fragmentShader]);
 
 		// Look up where the vertex data needs to go.
 		const positionAttributeLocation = gl.getAttribLocation(program, "a_position");
