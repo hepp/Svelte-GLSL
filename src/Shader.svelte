@@ -32,10 +32,12 @@
 		let frame;
 
 		if (!gl) {
-			return; // Fallback options for no webgl support
+			// Handle cases for no WebGL support
+			console.log("WebGL needed in order to run shader demo.");
+			return; 
 		}
 
-		// Defaul Vertex Shader
+		// Default vertex shader
 		const vs = `
 			// an attribute will receive data from a buffer
 			attribute vec4 a_position;
@@ -49,7 +51,7 @@
 			}
 		`;
 
-		// Defaul Fragment Shader
+		// Default fragment shader
 		const fs = `
 			precision highp float;
 
@@ -65,13 +67,13 @@
 			}
 		`;
 
-		// setup GLSL program
+		// Setup GLSL program
 		const program = createProgramFromSources(gl, [vs, fs]);
 
-		// look up where the vertex data needs to go.
+		// Look up where the vertex data needs to go.
 		const positionAttributeLocation = gl.getAttribLocation(program, "a_position");
 
-		// look up uniform locations
+		// Look up uniform locations
 		const resolutionLocation = gl.getUniformLocation(program, "u_resolution");
 		const mouseLocation = gl.getUniformLocation(program, "u_mouse");
 		const timeLocation = gl.getUniformLocation(program, "u_time");
