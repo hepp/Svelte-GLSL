@@ -78,7 +78,7 @@
 			const positionBuffer = gl.createBuffer();
 			gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 			gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]), gl.STATIC_DRAW);
-			gl.viewport(.95, 0, gl.canvas.width, gl.canvas.height);
+			gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
 			gl.useProgram(program);
 			gl.enableVertexAttribArray(positionAttributeLocation);
 			gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
