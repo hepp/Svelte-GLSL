@@ -1,13 +1,9 @@
-<svelte:window bind:innerWidth={innerWidth} bind:innerHeight={innerHeight}/>
-
 <script>
 
-	// Example from : https://webglfundamentals.org/webgl/lessons/webgl-shadertoy.html
+	// Example based on : https://webglfundamentals.org/webgl/lessons/webgl-shadertoy.html
 
 	import { onMount } from 'svelte';
 	import { createProgramFromSources, bindQuadBuffer } from './ShaderUtils.svelte';
-
-	export let scale = 1;
 
 	// Default fragment shader
 	export let fragmentShader = `
@@ -22,25 +18,17 @@
 		}
 	`;
 
-	let canvas;
-	let canvasWidth, canvasHeight;
-	let clientWidth, clientHeight;
+	export let scale = 1;
 
-	let innerWidth, innerHeight;
+	let canvas;
 
 	let m = { x: 0, y: 0 };
 	let time = 0;
 
 	function handleMousemove(event) {
 
-		let s = (scale * 100);
-
-		canvasWidth = s + "%";
-		canvasHeight = s + "%";
-
-		// Scale to the entire window
-		m.x = (event.clientX / clientWidth) * s;
-		m.y = (event.clientY / clientHeight) * s;
+		m.x = event.clientX * scale;
+		m.y = event.clientY * scale;
 	}
 
 	onMount(() => {
@@ -113,8 +101,6 @@
 
 <canvas on:mousemove={handleMousemove}
 	bind:this={canvas}
-	bind:clientWidth={clientWidth}
-	bind:clientHeight={clientHeight} 
-	width={canvasWidth}
-	height={canvasHeight}
+	width={window.innerWidth * scale}
+	height={window.innerHeight * scale}
 ></canvas>
